@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OGGY Heart Animation</title>
+    <title>Valentine Animation</title>
     <style>
         * {
             margin: 0;
@@ -17,53 +17,70 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            font-family: 'Arial', sans-serif;
         }
         .container {
-            position: relative;
             text-align: center;
+            position: relative;
         }
         .heart-btn {
             padding: 15px 30px;
-            font-size: 20px;
+            font-size: 22px;
             border: none;
             background: red;
             color: white;
             border-radius: 50px;
             cursor: pointer;
         }
-        .heart {
-            width: 150px;
-            height: 150px;
-            background: red;
+        .skyshot {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            width: 10px;
+            height: 100px;
+            background: gold;
+            transform: translateX(-50%);
+            opacity: 0;
+        }
+        .oggy-text {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            clip-path: polygon(50% 15%, 100% 50%, 50% 100%, 0% 50%);
-        }
-        .message, .oggy-text, .final-heart, .letter {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            font-size: 24px;
-            color: white;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: pink;
             opacity: 0;
         }
-        .letter {
-            font-family: 'Dancing Script', cursive;
+        .explosion {
+            font-size: 40px;
+            color: white;
+            opacity: 0;
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .message {
+            position: absolute;
+            width: 80%;
+            text-align: center;
+            bottom: 10%;
             font-size: 22px;
+            color: white;
+            opacity: 0;
+            font-family: 'Dancing Script', cursive;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <button class="heart-btn">💖 Open Heart</button>
-        <div class="heart"></div>
-        <div class="message">✨ Celebration Time! 🎉</div>
+        <button class="heart-btn">❤️ OPEN</button>
+        <div class="skyshot"></div>
         <div class="oggy-text"></div>
-        <div class="final-heart">❤️</div>
-        <div class="letter">Saath mein jyada time hua nahi hai, par kabhi mehsoos nahi hua. Aisa laga hai jaise hum ek dusre ko kitne time se jaante hain. Sabhi kamiya, khamiya dekhte hue bhi saath dena, yahan tak aana, aur mere partner banne ke liye dil se shukriya.</div>
+        <div class="explosion">🎆🎆 Happy Valentine's Day My Loviee Cutie 🎆🎆</div>
+        <div class="message">Saath mein jyada time hua nahi hai, par kabhi mehsoos nahi hua. Aisa laga hai jaise hum ek dusre ko kitne time se jaante hain. Sabhi kamiya, khamiya dekhte hue bhi saath dena, yahan tak aana, aur mere partner banne ke liye dil se shukriya. ❤️</div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -71,58 +88,45 @@
         document.querySelector('.heart-btn').addEventListener('click', function () {
             this.style.display = 'none';
 
-            // Heart Animation
-            gsap.to('.heart', { scale: 1, duration: 1, ease: "elastic.out(1, 0.5)" });
+            // Skyshot animation
+            gsap.to('.skyshot', { opacity: 1, y: "-100vh", duration: 1, ease: "power2.in" });
 
-            // Open Heart Effect
+            // OGGY Text Animation
             setTimeout(() => {
-                gsap.to('.heart', { scaleX: 0, duration: 1.5, ease: "power3.inOut" });
+                let text = "OGGY";
+                let oggyContainer = document.querySelector('.oggy-text');
+                oggyContainer.style.opacity = 1;
 
-                setTimeout(() => {
-                    gsap.to('.message', { opacity: 1, scale: 1.2, duration: 1 });
+                text.split('').forEach((char, index) => {
+                    let span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.fontSize = '60px';
+                    span.style.color = 'pink';
+                    span.style.opacity = 0;
+                    span.style.display = 'inline-block';
+                    span.style.margin = '5px';
+                    oggyContainer.appendChild(span);
                     
-                    // Festive Crackers Effect
-                    for (let i = 0; i < 10; i++) {
-                        let confetti = document.createElement('div');
-                        confetti.innerHTML = '🎆';
-                        confetti.style.position = 'absolute';
-                        confetti.style.left = `${Math.random() * 100}vw`;
-                        confetti.style.top = `${Math.random() * 100}vh`;
-                        confetti.style.fontSize = '30px';
-                        document.body.appendChild(confetti);
-                        gsap.to(confetti, { y: -100, opacity: 0, duration: 2, delay: Math.random() });
-                    }
+                    gsap.to(span, { opacity: 1, delay: index * 0.5, duration: 0.5 });
+                });
 
-                    // OGGY Text Animation
-                    let text = "OGGY";
-                    let oggyContainer = document.querySelector('.oggy-text');
-                    oggyContainer.style.opacity = 1;
+                // OGGY Crack Effect
+                setTimeout(() => {
+                    gsap.to('.oggy-text', { scale: 2, opacity: 0, duration: 0.8, ease: "power3.inOut" });
 
-                    text.split('').forEach((char, index) => {
-                        let span = document.createElement('span');
-                        span.textContent = char;
-                        span.style.fontSize = '40px';
-                        span.style.color = 'white';
-                        span.style.opacity = 0;
-                        span.style.display = 'inline-block';
-                        oggyContainer.appendChild(span);
-                        
-                        gsap.to(span, { opacity: 1, delay: index * 0.5, duration: 0.5 });
-                    });
-
-                    // Heart Transformation
+                    // Happy Valentine's Day Explosion
                     setTimeout(() => {
-                        oggyContainer.innerHTML = "❤️";
-                        gsap.to('.final-heart', { opacity: 1, scale: 1.5, duration: 1 });
+                        gsap.to('.explosion', { opacity: 1, scale: 1.5, duration: 1 });
 
-                        // Love Letter Slide-Up
+                        // Love Message Slide-Up
                         setTimeout(() => {
-                            gsap.to('.letter', { opacity: 1, y: -100, duration: 1 });
+                            gsap.to('.message', { opacity: 1, y: -50, duration: 1 });
                         }, 2000);
-                    }, 3000);
 
-                }, 2000);
-            }, 2000);
+                    }, 1000);
+                }, 3000);
+
+            }, 1500);
         });
     </script>
 
