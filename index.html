@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Sliding Panels (Mobile Optimized) */
+        .slide {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            animation: slideIn 1s ease-in-out forwards;
+        }
+        .slide1 { background: red; animation-delay: 0s; transform: translateX(-100%); }
+        .slide2 { background: blue; animation-delay: 0.5s; transform: translateX(100%); }
+        .slide3 { background: yellow; animation-delay: 1s; transform: translateY(-100%); }
+        .slide4 { background: green; animation-delay: 1.5s; transform: translateY(100%); }
+
+        @keyframes slideIn {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        /* Open Button (Bigger for Mobile) */
+        #openBtn {
+            position: absolute;
+            padding: 15px 40px;
+            font-size: 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards 2s;
+            box-shadow: 0px 0px 10px white;
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+
+        #openBtn:hover {
+            box-shadow: 0px 0px 20px pink;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Celebration Effects (Mobile Optimized) */
+        .firework {
+            position: absolute;
+            top: -100px;
+            width: 10px;
+            height: 10px;
+            background: gold;
+            border-radius: 50%;
+            animation: fall 4s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        /* OGGY Name Animation (Big & Centered for Mobile) */
+        #oggyText {
+            position: absolute;
+            font-size: 10vw; /* Responsive Size */
+            font-weight: bold;
+            color: white;
+            opacity: 0;
+            text-align: center;
+            animation: typeEffect 3s ease-in-out forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes typeEffect {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Heart Transformation (Mobile Adjusted) */
+        .heart {
+            width: 80px;
+            height: 80px;
+            background: red;
+            position: absolute;
+            transform: scale(0);
+            animation: heartGrow 2s ease-in-out forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes heartGrow {
+            0% { transform: scale(0); }
+            100% { transform: scale(1.5); }
+        }
+
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 60px;
+            background: red;
+            border-radius: 50px 50px 0 0;
+            top: 0;
+        }
+
+        .heart::before {
+            left: 40px;
+            transform: rotate(-45deg);
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+        }
+
+        /* Love Letter (Mobile-Friendly Readable Size) */
+        .letter {
+            width: 90%;
+            height: auto;
+            background: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 4vw;
+            position: absolute;
+            bottom: -200px;
+            animation: letterSlide 3s ease-in-out forwards;
+            animation-delay: 7s;
+        }
+
+        @keyframes letterSlide {
+            0% { bottom: -200px; }
+            100% { bottom: 50px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sliding Panels -->
+    <div class="slide slide1"></div>
+    <div class="slide slide2"></div>
+    <div class="slide slide3"></div>
+    <div class="slide slide4"></div>
+
+    <!-- Open Button -->
+    <button id="openBtn">Open</button>
+
+    <!-- Celebration Effects -->
+    <div id="celebration">
+        <div class="firework" style="left: 10%;"></div>
+        <div class="firework" style="left: 30%;"></div>
+        <div class="firework" style="left: 50%;"></div>
+        <div class="firework" style="left: 70%;"></div>
+        <div class="firework" style="left: 90%;"></div>
+    </div>
+
+    <!-- Animation Container -->
+    <div id="animationContainer">
+        <div id="oggyText">OGGY</div>
+        <div class="heart"></div>
+        <div class="letter">
+            'Saath mein jyada time hua nahi hai, par kabhi mehsoos nahi hua. 
+            Aisa laga hai jaise hum ek dusre ko kitne time se jaante hain. 
+            Sabhi kamiya, khamiya dekhte hue bhi saath dena, yahan tak aana, 
+            aur mere partner banne ke liye dil se shukriya.'
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('openBtn').addEventListener('click', function() {
+            document.body.style.background = 'pink';
+            document.getElementById('oggyText').style.opacity = "1";
+            document.querySelector('.heart').style.opacity = "1";
+            this.style.display = 'none';
+
+            // Celebration effect start
+            let num = 15;
+            for (let i = 0; i < num; i++) {
+                let firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.left = Math.random() * 100 + 'vw';
+                document.body.appendChild(firework);
+            }
+        });
+    </script>
+
+</body>
+</html>
