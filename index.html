@@ -3,198 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Surprise</title>
+    <title>OGGY Heart Animation</title>
     <style>
-        body, html {
+        * {
             margin: 0;
             padding: 0;
-            overflow: hidden;
-            background: black;
+            box-sizing: border-box;
+        }
+        body {
+            background: url('https://source.unsplash.com/1080x1920/?love,romantic') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
-
-        /* Sliding Panels (Mobile Optimized) */
-        .slide {
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            animation: slideIn 1s ease-in-out forwards;
+        .container {
+            position: relative;
+            text-align: center;
         }
-        .slide1 { background: red; animation-delay: 0s; transform: translateX(-100%); }
-        .slide2 { background: blue; animation-delay: 0.5s; transform: translateX(100%); }
-        .slide3 { background: yellow; animation-delay: 1s; transform: translateY(-100%); }
-        .slide4 { background: green; animation-delay: 1.5s; transform: translateY(100%); }
-
-        @keyframes slideIn {
-            0% { transform: translateX(0) translateY(0); }
-            100% { transform: translateX(0) translateY(0); }
-        }
-
-        /* Open Button (Bigger for Mobile) */
-        #openBtn {
-            position: absolute;
-            padding: 15px 40px;
+        .heart-btn {
+            padding: 15px 30px;
             font-size: 20px;
-            background: white;
             border: none;
+            background: red;
+            color: white;
+            border-radius: 50px;
             cursor: pointer;
-            z-index: 10;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards 2s;
-            box-shadow: 0px 0px 10px white;
-            transition: 0.3s;
-            border-radius: 10px;
         }
-
-        #openBtn:hover {
-            box-shadow: 0px 0px 20px pink;
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* Celebration Effects (Mobile Optimized) */
-        .firework {
+        .heart {
+            width: 150px;
+            height: 150px;
+            background: red;
             position: absolute;
-            top: -100px;
-            width: 10px;
-            height: 10px;
-            background: gold;
-            border-radius: 50%;
-            animation: fall 4s linear infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            clip-path: polygon(50% 15%, 100% 50%, 50% 100%, 0% 50%);
         }
-
-        @keyframes fall {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
-        }
-
-        /* OGGY Name Animation (Big & Centered for Mobile) */
-        #oggyText {
+        .message, .oggy-text, .final-heart, .letter {
             position: absolute;
-            font-size: 10vw; /* Responsive Size */
-            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
             color: white;
             opacity: 0;
-            text-align: center;
-            animation: typeEffect 3s ease-in-out forwards;
-            animation-delay: 1s;
         }
-
-        @keyframes typeEffect {
-            0% { opacity: 0; transform: scale(0.5); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        /* Heart Transformation (Mobile Adjusted) */
-        .heart {
-            width: 80px;
-            height: 80px;
-            background: red;
-            position: absolute;
-            transform: scale(0);
-            animation: heartGrow 2s ease-in-out forwards;
-            animation-delay: 3s;
-        }
-
-        @keyframes heartGrow {
-            0% { transform: scale(0); }
-            100% { transform: scale(1.5); }
-        }
-
-        .heart::before, .heart::after {
-            content: "";
-            position: absolute;
-            width: 40px;
-            height: 60px;
-            background: red;
-            border-radius: 50px 50px 0 0;
-            top: 0;
-        }
-
-        .heart::before {
-            left: 40px;
-            transform: rotate(-45deg);
-        }
-
-        .heart::after {
-            left: 0;
-            transform: rotate(45deg);
-        }
-
-        /* Love Letter (Mobile-Friendly Readable Size) */
         .letter {
-            width: 90%;
-            height: auto;
-            background: white;
-            text-align: center;
-            padding: 10px;
-            font-size: 4vw;
-            position: absolute;
-            bottom: -200px;
-            animation: letterSlide 3s ease-in-out forwards;
-            animation-delay: 7s;
-        }
-
-        @keyframes letterSlide {
-            0% { bottom: -200px; }
-            100% { bottom: 50px; }
+            font-family: 'Dancing Script', cursive;
+            font-size: 22px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sliding Panels -->
-    <div class="slide slide1"></div>
-    <div class="slide slide2"></div>
-    <div class="slide slide3"></div>
-    <div class="slide slide4"></div>
-
-    <!-- Open Button -->
-    <button id="openBtn">Open</button>
-
-    <!-- Celebration Effects -->
-    <div id="celebration">
-        <div class="firework" style="left: 10%;"></div>
-        <div class="firework" style="left: 30%;"></div>
-        <div class="firework" style="left: 50%;"></div>
-        <div class="firework" style="left: 70%;"></div>
-        <div class="firework" style="left: 90%;"></div>
-    </div>
-
-    <!-- Animation Container -->
-    <div id="animationContainer">
-        <div id="oggyText">OGGY</div>
+    <div class="container">
+        <button class="heart-btn">💖 Open Heart</button>
         <div class="heart"></div>
-        <div class="letter">
-            'Saath mein jyada time hua nahi hai, par kabhi mehsoos nahi hua. 
-            Aisa laga hai jaise hum ek dusre ko kitne time se jaante hain. 
-            Sabhi kamiya, khamiya dekhte hue bhi saath dena, yahan tak aana, 
-            aur mere partner banne ke liye dil se shukriya.'
-        </div>
+        <div class="message">✨ Celebration Time! 🎉</div>
+        <div class="oggy-text"></div>
+        <div class="final-heart">❤️</div>
+        <div class="letter">Saath mein jyada time hua nahi hai, par kabhi mehsoos nahi hua. Aisa laga hai jaise hum ek dusre ko kitne time se jaante hain. Sabhi kamiya, khamiya dekhte hue bhi saath dena, yahan tak aana, aur mere partner banne ke liye dil se shukriya.</div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script>
-        document.getElementById('openBtn').addEventListener('click', function() {
-            document.body.style.background = 'pink';
-            document.getElementById('oggyText').style.opacity = "1";
-            document.querySelector('.heart').style.opacity = "1";
+        document.querySelector('.heart-btn').addEventListener('click', function () {
             this.style.display = 'none';
 
-            // Celebration effect start
-            let num = 15;
-            for (let i = 0; i < num; i++) {
-                let firework = document.createElement('div');
-                firework.classList.add('firework');
-                firework.style.left = Math.random() * 100 + 'vw';
-                document.body.appendChild(firework);
-            }
+            // Heart Animation
+            gsap.to('.heart', { scale: 1, duration: 1, ease: "elastic.out(1, 0.5)" });
+
+            // Open Heart Effect
+            setTimeout(() => {
+                gsap.to('.heart', { scaleX: 0, duration: 1.5, ease: "power3.inOut" });
+
+                setTimeout(() => {
+                    gsap.to('.message', { opacity: 1, scale: 1.2, duration: 1 });
+                    
+                    // Festive Crackers Effect
+                    for (let i = 0; i < 10; i++) {
+                        let confetti = document.createElement('div');
+                        confetti.innerHTML = '🎆';
+                        confetti.style.position = 'absolute';
+                        confetti.style.left = `${Math.random() * 100}vw`;
+                        confetti.style.top = `${Math.random() * 100}vh`;
+                        confetti.style.fontSize = '30px';
+                        document.body.appendChild(confetti);
+                        gsap.to(confetti, { y: -100, opacity: 0, duration: 2, delay: Math.random() });
+                    }
+
+                    // OGGY Text Animation
+                    let text = "OGGY";
+                    let oggyContainer = document.querySelector('.oggy-text');
+                    oggyContainer.style.opacity = 1;
+
+                    text.split('').forEach((char, index) => {
+                        let span = document.createElement('span');
+                        span.textContent = char;
+                        span.style.fontSize = '40px';
+                        span.style.color = 'white';
+                        span.style.opacity = 0;
+                        span.style.display = 'inline-block';
+                        oggyContainer.appendChild(span);
+                        
+                        gsap.to(span, { opacity: 1, delay: index * 0.5, duration: 0.5 });
+                    });
+
+                    // Heart Transformation
+                    setTimeout(() => {
+                        oggyContainer.innerHTML = "❤️";
+                        gsap.to('.final-heart', { opacity: 1, scale: 1.5, duration: 1 });
+
+                        // Love Letter Slide-Up
+                        setTimeout(() => {
+                            gsap.to('.letter', { opacity: 1, y: -100, duration: 1 });
+                        }, 2000);
+                    }, 3000);
+
+                }, 2000);
+            }, 2000);
         });
     </script>
 
